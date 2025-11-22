@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vialowspender</title>
+    <!-- Font: Open Sans (Jelas & Modern Sport) dan Font Awesome untuk Ikon -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet"> <!-- Font Headline Sporty -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* CSS Styling */
+        :root {
+            /* Palette Karasuno High (Hitam & Oranye) */
+            --bg-dark: #000000; 
+            --card-bg: #ffffff; 
+            --primary-orange: #ff6600; /* Karasuno Orange/Energi */
+            --secondary-black: #1a1a1a; /* Black/Tekstur Kaos */
+            --text-dark: #2c2c2c;
+            --text-light: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            /* Latar Belakang Hitam dengan Tekstur Grid/Lapangan */
+            background: linear-gradient(135deg, var(--secondary-black) 0%, var(--bg-dark) 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- Header / Navigasi (UI Scoreboard) --- */
+        .header-nav {
+            width: 90%;
+            max-width: 1000px;
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px; 
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 800;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: color 0.3s;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+            color: var(--primary-orange);
+        }
+        
+        /* Efek Hover (Warna Oranye) */
+        .nav-link:hover {
+            color: var(--primary-orange);
+        }
+
+        /* Styling LOGOUT (Time Out Button) */
+        .logout-link {
+            border: 3px solid var(--primary-orange);
+            color: var(--primary-orange);
+            padding: 8px 20px;
+            border-radius: 2px; /* Sudut Tajam */
+            background-color: var(--secondary-black);
+            box-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .logout-link:hover {
+            background-color: var(--primary-orange);
+            color: var(--text-light);
+        }
+
+        /* --- Profile Card (Player Status Panel) --- */
+        .profile-container {
+            width: 90%;
+            max-width: 600px;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        .profile-card {
+            background-color: var(--card-bg);
+            /* Garis Pinggir Lapangan */
+            border: 5px solid var(--secondary-black); 
+            border-radius: 5px;
+            padding: 100px 40px 40px 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .avatar-wrapper {
+            position: absolute;
+            top: -70px; 
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            /* Bentuk Bola Voli / Lingkaran Penuh */
+            border-radius: 50%;
+            background-color: var(--bg-dark); 
+            padding: 10px; 
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.7); /* Glow Orange */
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 4px solid var(--primary-orange); 
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+
+        .profile-info h1 {
+            font-family: 'Squada One', sans-serif;
+            color: var(--primary-orange);
+            font-size: 2.8em;
+            margin-bottom: 5px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .profile-info h2 {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--secondary-black);
+            font-size: 1.1em;
+            font-weight: 800;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary-orange);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        
+        /* Section Profil Awal */
+        .intro-text {
+            color: var(--text-dark);
+            font-size: 1em;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        /* Section Keahlian (Stats Display) */
+        .skills-section {
+            padding-top: 20px;
+            border-top: 2px dashed var(--secondary-black);
+        }
+
+        .skills-section h3 {
+            color: var(--primary-orange);
+            font-weight: 800;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .skills-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Stat Item (dengan Rating Bintang) */
+        .skill-item {
+            background-color: var(--secondary-black); 
+            color: var(--text-light);
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 1em;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .rating-stars i {
+            color: var(--primary-orange);
+            font-size: 0.9em;
+            margin-left: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <div class="nav-links">
+            <a href="dashboard.html" class="nav-link"><i class="fas fa-volleyball-ball"></i> HOME</a>
+            <a href="kontak.html" class="nav-link"><i class="fas fa-users"></i> CONTACT</a> 
+            <a href="music.html" class="nav-link"><i class="fas fa-music"></i> MUSIC</a> 
+            <a href="game.html" class="nav-link"><i class="fas fa-gamepad"></i> GAME</a> 
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link logout-link"><i class="fas fa-stopwatch"></i> LOGOUT</a>
+        </div>
+    </header>
+
+    <main class="profile-container">
+        <!-- Wrapper untuk Avatar, dengan Glow Orange -->
+        <div class="avatar-wrapper">
+            <!-- PENTING: Ganti URL gambar di bawah ini dengan gambar Anda -->
+            <img 
+                src="s.png" 
+                alt="Profile Avatar" 
+                class="avatar"
+            >
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-info">
+                <h1>TJKT</h1>
+                <h2>SMK MAARIF | SPHERE OF INFLUENCE: NETWORKING</h2>
+                
+                <p class="intro-text">
+                   Saya adalah siswa dari SMK Maarif, kelas XI TJKT 2. Saat ini saya mendalami bidang Teknik Jaringan dan Komputer (TJKT), mulai dari perakitan komputer, instalasi sistem operasi, hingga pengelolaan jaringan. Saya terus berusaha mengembangkan kemampuan dan pengalaman agar siap menghadapi perkembangan dunia teknologi dan menjadi pribadi yang lebih kompeten di bidang IT.
+                </p>
+
+                <div class="skills-section">
+                    <h3></h3>
+                    <ul class="skills-list">
+                        <li class="skill-item">
+                            <span>IT</span>
+                            <span class="rating-stars">
+                                <i class="fas fa-star"></i><i cl
